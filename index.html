@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>RPS</title>
+  </head>
+  <body>
+    <h1>Play RPS</h1>
+    <script>
+    // Create an Array of Drinks with all capital letters
+    var replay = true;
+    var playerScore;
+    var robotScore;
+    var currPlayer;
+    var currRobot;
+    var currentRound;
+    var ammo = ["Rock","Paper","Scissors"];
+
+    function choosing(){
+        var playerInput = prompt("Choose: Rock, Paper, or Scissors?");
+
+        if(playerInput.toLowerCase() == "rock"){
+                currPlayer = 0;
+            }
+        else if(playerInput.toLowerCase()=="paper"){
+                currPlayer = 1;
+            }
+        else if(playerInput.toLowerCase() == "scissors"){
+                currPlayer = 2;
+            }
+        else{
+            alert("Please choose the correct option");
+            choosing();
+            }
+
+        return true;
+    }
+
+    function check(player, computer){
+        var result = 0;
+        if(player==computer){
+            result = 0; //draw
+        }
+        else if(player == 0 && computer == 1){
+            result = 1; // lose
+        }
+        else if(player == 0 && computer  == 2){
+            result = 2; //win
+        }
+        else if(player == 1 && computer == 2){
+            result = 1; // lose
+        }
+        else if(player == 1 && computer  == 0){
+            result = 2; //win
+        }
+        else if(player == 2 && computer == 0){
+            result = 1; // lose
+        }
+        else if(player == 2 && computer  == 1){
+            result = 2; //win
+        }
+        return result;
+    }
+
+    while(replay){
+        playerScore=0, robotScore=0, currPlayer=0, currRobot = 0, currentRound=0;
+        while(currentRound<10){
+            if(choosing()){
+                currRobot = Math.floor(Math.random()*2);
+                switch(check(currPlayer, currRobot)){
+                    case 0:
+                        alert("Robot plays " + ammo[currRobot]+". It's a Draw! " + "Player Score: "+ playerScore + " Robot Score: "+ robotScore);
+                        break;
+
+                    case 1:
+                        robotScore++;
+                        alert("Robot plays " + ammo[currRobot]+". You Lost! " + "Player Score: "+ playerScore + " Robot Score: "+ robotScore);
+                        break;
+
+                    case 2:
+                        playerScore++;
+                        alert("Robot plays " + ammo[currRobot]+". You won! " + "Player Score: "+ playerScore + " Robot Score: "+ robotScore);
+                        break;
+                }
+            }
+            currentRound++;
+            alert("You have "+(10-currentRound) + " rounds left.")
+        }
+        if(playerScore==robotScore){
+            replay = confirm("It's a draw. Play again?");
+        }
+        else if(playerScore<robotScore){
+            replay = confirm("You lost. Play again?");
+        }
+        else if(playerScore>robotScore){
+            replay = confirm("You won! Play again?");
+        }
+    }
+    </script>
+  </body>
+</html>
